@@ -1,0 +1,4 @@
+/home/p82maavd/Desktop/fsiv/Practica2/build/CMakeFiles/rebuild_cache.dir
+/home/p82maavd/Desktop/fsiv/Practica2/build/CMakeFiles/edit_cache.dir
+/home/p82maavd/Desktop/fsiv/Practica2/build/CMakeFiles/assigment2.dir
+/home/p82maavd/Desktop/fsiv/Practica2/build/CMakeFiles/assigment3.dir
