@@ -29,36 +29,52 @@ void applyKernel(cv::Mat &in, cv::Mat &out, cv::Mat &kernel){
 				}
 			}
 			ptr3[c]=media;
-			
 			media=0.0;
-			
 				
 		}
 	}
-
 
 }
 int main(int argc,char **argv){
 	try{
 	
-		if(argc!=3) {cerr<<"Usage:image kernel_size"<<endl;return 0;} 
+		if(argc!=2) {cerr<<"Usage:image"<<endl;return 0;} 
 
-		if(atoi(argv[2])%2==0) {cerr<<"kernel_size must be odd"<<endl;return 0;} 
-		
-		cv::Mat image, outImage;
+		cv::Mat image, xImage, yImage, outImage;
 		
 		
-		cv::Mat kernel(atoi(argv[2]), atoi(argv[2]), CV_32FC1,1.0f);
+		float data[9]= {-1.0,0.0,1.0,-2.0,0.0,2.0,-1.0,0.0,1.0};
+		cv::Mat kernelx(3, 3, CV_32FC1,data);
+		
+		float data2[9]= {-1.0,-2.0,-1.0,0.0,0.0,0.0,1.0,2.0,1.0};
+		cv::Mat kernely(3, 3, CV_32FC1,data2);
 
 		//Load the image 
 		image=cv::imread(argv[1]);
 		//Change image to grayscale 
 		cv::cvtColor(image, image, cv::COLOR_BGR2GRAY);
+		image.copyTo(xImage);
+		image.copyTo(yImage);
 		image.copyTo(outImage);
 
-		applyKernel(image,outImage,kernel);
+		applyKernel(image,xImage,kernelx);
+		
+		applyKernel(image,yImage,kernely);
+		
+		for( int r=0;r<xImage.rows;r++){
+		
+			uchar *ptr2=xImage.ptr<uchar>(r);
+			uchar *ptr3=yImage.ptr<uchar>(r);
+			uchar *ptr4=outImage.ptr<uchar>(r);
+			for( int c=0;c<xImage.cols;c++){
+				
+				ptr4[c]=sqrt(pow(ptr2[c],2)+pow(ptr3[c],2));
+					
+			}
+		}
 		
 		cv::imshow("Input Image",image);
+		
 		cv::imshow("Output Image",outImage);
 		char c=0;
 		while(c!=27)  //waits until ESC pressed
