@@ -88,12 +88,12 @@ void applyKernel(cv::Mat &in, cv::Mat &out, cv::Mat &kernel){
    * @return the median of coll
    *****************/
    
-   int median(vector<int> coll) {
+   int medianC(vector<int> coll) {
       double result;
       int n = coll.size()/2;
       
       if (coll.size() % 2 == 0)  // even number of items; find the middle two and average them
-         result = (nth(coll, n-1);
+         result = (nth(coll, n-1));
       else                      // odd number of items; return the one in the middle
          result = nth(coll, n);
          
@@ -132,7 +132,7 @@ void medianFilter(cv::Mat &in,cv::Mat &out, int size){
 			}
 			//sort (median.begin(), median.end());
 			//ptr2[c]=median[median.size()/2];
-			ptr2[c]=median(median);
+			ptr2[c]=medianC(median);
 			
 			median.clear();
 			
